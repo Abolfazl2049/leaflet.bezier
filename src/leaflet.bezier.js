@@ -71,6 +71,11 @@ const Bezier = L.Path.extend({
   setAnimatePlane(path: any) {
     const self = this;
 
+    if (this._planeStarted && this.options.preventRedrawOnUpdate) {
+      return;
+    }
+    this._planeStarted = true;
+
     if (this.spaceship_img) { this.spaceship_img.remove(); }
 
     const SnapSvg = Snap('.leaflet-overlay-pane>svg');
