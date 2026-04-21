@@ -123,6 +123,11 @@ const Bezier = L.Path.extend({
       const x = moveToPoint.x - (width / 2);
       const y = moveToPoint.y - (height / 2);
 
+      const pixelPoint = L.point(moveToPoint.x, moveToPoint.y);
+      const latlng = self._map.layerPointToLatLng(pixelPoint);
+
+      self.fire("iconmove", { latlng, pixelPoint, step });
+
       spaceship.transform(`translate(${x},${y}) rotate(${moveToPoint.alpha - 90}, ${width / 2}, ${height / 2})`);
     }, easeOutTime, mina.easeout, () => {
       Snap.animate(halfPathLength, destinationPathLength, (step) => {
